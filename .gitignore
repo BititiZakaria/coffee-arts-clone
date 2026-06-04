@@ -5,7 +5,7 @@ node_modules/
 
 # Testing
 /coverage
-
+/public
 # Production
 /build
 /dist
@@ -35,3 +35,11 @@ lerna-debug.log*
 
 # OS
 Thumbs.db
+
+# Formats non utilisables dans le navigateur (garder jpg/png/webp à la place)
+*.heic
+*.HEIC
+
+# Doublons vidéo lourds (.mp4 conservé pour le web)
+*.mov
+

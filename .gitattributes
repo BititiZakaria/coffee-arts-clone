@@ -1,0 +1,21 @@
+# Fin de ligne cohérente (évite les warnings LF/CRLF sous Windows)
+* text=auto eol=lf
+
+# SVG : texte, toujours LF
+*.svg text eol=lf
+
+# Médias binaires : pas de conversion de fins de ligne
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.avif binary
+*.ico binary
+*.heic binary
+*.HEIC binary
+*.mp4 binary
+*.mov binary
+*.woff2 binary
+*.ttf binary
+*.pdf binary
