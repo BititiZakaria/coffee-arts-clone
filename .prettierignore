@@ -1,0 +1,6 @@
+.prettierignore
+node_modules/
+.git/
+.env*
+dist/
+build/
