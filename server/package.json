@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Backend API pour Coffee Arts Clone",
   "type": "module",
+  "engines": {
+    "node": "18.x"
+  },
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js",
