@@ -29,14 +29,10 @@ export const createProduct = async (req, res) => {
     const { name, description, price, category, stock } = req.body
 
     let image = null
-    if (req.file) {
-      const result = await cloudinary.uploader.upload_stream(
-        { folder: 'coffee-arts/products' },
-        (error, result) => {
-          if (error) throw error
-          return result
-        }
-      )
+    if (req.file && req.file.buffer) {
+      // Use data URI upload to Cloudinary to avoid extra native deps
+      const dataUri = `data:${req.file.mimetype};base64,${req.file.buffer.toString('base64')}`
+      const result = await cloudinary.uploader.upload(dataUri, { folder: 'coffee-arts/products' })
       image = result.secure_url
     }
 

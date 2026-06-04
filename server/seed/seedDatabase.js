@@ -1,3 +1,5 @@
+import dotenv from 'dotenv'
+import connectDB from '../config/db.js'
 import User from '../models/User.js'
 import Product from '../models/Product.js'
 import Workshop from '../models/Workshop.js'
@@ -60,3 +62,17 @@ const seedDatabase = async () => {
 }
 
 export default seedDatabase
+
+// If this file is executed directly, load env, connect to DB and run seed
+dotenv.config()
+;(async () => {
+  try {
+    await connectDB()
+    await seedDatabase()
+    console.log('Seed finished, exiting.')
+    process.exit(0)
+  } catch (err) {
+    console.error('Seed error:', err)
+    process.exit(1)
+  }
+})()

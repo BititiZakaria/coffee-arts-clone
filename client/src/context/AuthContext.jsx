@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect, useCallback } from 'react';
-import api from '../services/api';
+import apiClient from '../services/apiClient';
 
 const AuthContext = createContext(null);
 
@@ -9,35 +9,35 @@ export function AuthProvider({ children }) {
 
   /* ── Restore session on mount ── */
   useEffect(() => {
-    const token = localStorage.getItem('cap_token');
+    const token = localStorage.getItem('token');
     if (!token) { setLoading(false); return; }
-    api.get('/auth/me')
+    apiClient.get('/auth/profile')
       .then(r => setUser(r.data))
-      .catch(() => localStorage.removeItem('cap_token'))
+      .catch(() => localStorage.removeItem('token'))
       .finally(() => setLoading(false));
   }, []);
 
   const login = useCallback(async (email, password) => {
-    const { data } = await api.post('/auth/login', { email, password });
-    localStorage.setItem('cap_token', data.token);
+    const { data } = await apiClient.post('/auth/login', { email, password });
+    localStorage.setItem('token', data.token);
     setUser(data.user);
     return data.user;
   }, []);
 
   const register = useCallback(async (payload) => {
-    const { data } = await api.post('/auth/register', payload);
-    localStorage.setItem('cap_token', data.token);
+    const { data } = await apiClient.post('/auth/register', payload);
+    localStorage.setItem('token', data.token);
     setUser(data.user);
     return data.user;
   }, []);
 
   const logout = useCallback(() => {
-    localStorage.removeItem('cap_token');
+    localStorage.removeItem('token');
     setUser(null);
   }, []);
 
   const updateProfile = useCallback(async (payload) => {
-    const { data } = await api.put('/auth/profile', payload);
+    const { data } = await apiClient.put('/auth/profile', payload);
     setUser(data);
     return data;
   }, []);
